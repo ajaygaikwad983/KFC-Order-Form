@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KFC order form</title>
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="../fontawesome-free-5.12.0-web/css/fontawesome.css">
+        <link rel="stylesheet" href="../fontawesome-free-5.12.0-web/css/all.css">  
+        <style>
+            .container {
+                box-shadow: 0px 5px 5px black;
+            }
+            h6 {
+                padding: 5px;
+                background-color: maroon;
+                text-align: center;
+                color: white;
+            }
+            .section-1, .section-2, .section-3,.section-4,.section-5 {
+                padding: 20px;
+                box-shadow: 0px 5px 10px maroon;
+            }
+            .card {
+                background-color: rgba(177, 177, 177,0.6);
+            }
+            button {
+                margin:auto;
+                width: 150px;
+                border: 1px solid maroon;
+                border-radius: 5px;
+                display: block;  
+                padding: 10px;
+            }
+            button:hover {
+                background-color: maroon;
+                color: white;
+            }
+            button:hover:disabled {
+                cursor: not-allowed;
+                background-color: white;
+                color: rgba(0,0,0,0.5);
+            }
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                width: 350px;
+                margin: auto;
+                display: none;
+            }
+        </style>
+        <script>
+            function enableClick(){
+                var radio=document.getElementsByName("Meals");
+
+                if(radio!==undefined){
+                    document.getElementById("btn").disabled=false;
+                    document.getElementById("btn").style.cursor="pointer";
+                }
+            }
+            function OrderClick(){
+                document.getElementById("popup").style.display="block";
+                document.getElementById("lblName").innerHTML=document.getElementById("txtName").value;
+                document.getElementById("lblMobile").innerHTML=document.getElementById("txtMobile").value;
+                document.getElementById("lblAddress").innerHTML=document.getElementById("txtAddress").value;
+
+                var mealName;
+                var mealCost;
+                var adonName="";
+                var adonCost;
+                var total;
+
+                var burgerRadio=document.getElementById("optBurger");
+                var rollerRadio=document.getElementById("optRoller");
+                var wingsCheckBox=document.getElementById("optWings");
+                var krusherCheckBox=document.getElementById("optKrusher");
+
+                if(burgerRadio.checked){
+                    mealName=burgerRadio.value;
+                    mealCost=150;
+                }
+                if(rollerRadio.checked){
+                    mealName=rollerRadio.value;
+                    mealCost=100;
+                }
+                if(wingsCheckBox.checked){
+                    adonName += wingsCheckBox.value + "<br>";
+                    adonCost=50;
+                    mealCost=mealCost + adonCost;
+                }
+                if(krusherCheckBox.checked){
+                    adonName+=krusherCheckBox.value + "<br>";
+                    adonCost=80;
+                    mealCost=mealCost+adonCost;
+                }
+                total=mealCost;
+
+                document.getElementById("lblMeal").innerHTML=mealName;
+                document.getElementById("lblAdOn").innerHTML=adonName;
+                document.getElementById("lblAmount").innerHTML="&#8377;" + total;   
+            }
+
+            function CloseClick(){
+                document.getElementById("popup").style.display="none";
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="section-1">
+                <img src="images/kfctop.PNG" width="100%" height="auto">
+            </div>
+            <br>
+
+            <div class="section-2">
+                <h6>Customer Info</h6>
+                <div>
+                    <form class="form-inline justify-content-between">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <div style="margin-left: 20px;">
+                                <input type="text" id="txtName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile:</label>
+                            <div style="margin-left: 20px;">
+                                <input type="text" id="txtMobile" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Address:</label>
+                            <div style="margin-left: 20px;">
+                                <input type="text" id="txtAddress" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+
+            <div class="section-3">
+                <h6>Select Your Meal</h6>
+                <div class="card-deck">
+                    <div class="text-center form-group card" >
+                        <img src="images/omg1.PNG" width="300px" height="auto" style="margin: auto; padding: 10px;">
+
+                        <div class="card-footer">
+                            <input type="radio" id="optBurger" value="OMG Burger" name="Meals" onchange="enableClick()" >
+                            <label>OMG Burger &#8377; 150/-</label>
+                        </div>
+                    </div>
+                    <div class="text-center form-group card">
+                        <img src="images/omg2.PNG" width="300px" height="auto" style="margin: auto; padding: 10px;">
+                        <div class="card-footer">
+                            <input type="radio" id="optRoller" value="OMG Roller" name="Meals" onchange="enableClick()">
+                            <label>OMG Roller &#8377; 100/-</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="section-4">
+                <h6>Select Add-ON</h6>
+                <div class="card-deck">
+                    <div class="text-center form-group card" >
+                        <img src="images/wings.PNG" width="300px" height="auto" style="margin: auto; padding: 10px;">
+
+                        <div class="card-footer">
+                            <input type="checkbox" id="optWings" value="Hot Wings" name="Meals" >
+                            <label>Hot Wings &#8377; 50/-</label>
+                        </div>
+                    </div>
+                    <div class="text-center form-group card">
+                        <img src="images/krusher1.PNG" width="300px" height="auto" style="margin: auto; padding: 10px;">
+                        <div class="card-footer">
+                            <input type="checkbox" id="optKrusher" value="Krusher Brownie" name="Meals" >
+                            <label>Brownie Blast &#8377; 80/-</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div id="popup" class="popup">
+                <table class="table table-warning">
+                    <tr >
+                        <th colspan="2" style="background-color: maroon; color: white">Bill Summary</th>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td id="lblName"></td>
+                    </tr>
+                    <tr>
+                        <td>Mobile:</td>
+                        <td id="lblMobile"></td>
+                    </tr>
+                    <tr>
+                        <td>Address:</td>
+                        <td id="lblAddress"></td>
+                    </tr>
+                    <tr>
+                        <td>Meal Name:</td>
+                        <td id="lblMeal"></td>
+                    </tr>
+                    <tr>
+                        <td>Ad-On's:</td>
+                        <td id="lblAdOn"></td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td id="lblAmount"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button onclick="CloseClick()">Close</button></td> 
+                    </tr>
+                </table>
+            </div>  
+            
+
+            <div class="section-5">
+                <button id="btn" onclick="OrderClick()" disabled>Place Order</button>
+            </div>
+            <br>
+
+        </div>
+    </body>
+</html>
